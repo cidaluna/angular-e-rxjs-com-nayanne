@@ -15,7 +15,10 @@ export class ListaLivrosComponent {
   constructor(private service: LivroService) { }
 
   buscarLivros(){
-    this.service.buscar(this.campoBusca).subscribe((retornoAPI) => console.log('Teste chamando API ', retornoAPI))
+    this.service.buscar(this.campoBusca).subscribe(
+      (retornoAPI) => console.log('Teste chamando API ', retornoAPI),
+      (error) => console.log('Teste chamando API ', error)
+      )
   }
 }
 
