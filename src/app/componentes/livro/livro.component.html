@@ -11,7 +11,7 @@
     <p class="resultado">{{ livro.publishedDate | date:'dd/MM/YYYY' }}</p>
     <p class="informacoes">Editora:</p>
     <p class="resultado">{{ livro.publisher | slice:0:20 }}</p>
-    <button>Mais detalhes</button>
+    <button (click)="onModelChange(true)">Mais detalhes</button>
   </div>
 </div>
 <div *ngIf="modalAberto">
