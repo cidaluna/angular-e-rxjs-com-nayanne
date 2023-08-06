@@ -4,7 +4,7 @@
   <div class="info-card">
     <p class="titulo">{{ livro.title | slice:0:30 }}</p>
     <p class="informacoes">Autoria:</p>
-    <p class="resultado">{{ livro.authors }}</p>
+    <p class="resultado">{{ livro.authors | autoria }}</p>
     <p class="informacoes">Data de publicação:</p>
     <!-- Site https://angular.io/api/common/DatePipe -->
     <p class="resultado">{{ livro.publishedDate | date:'dd/MM/YYYY' }}</p>
