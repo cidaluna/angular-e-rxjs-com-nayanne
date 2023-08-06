@@ -1,25 +1,25 @@
 <section class="container">
   <header>Que livro você procura?</header>
   <div class="busca">
-    <input
-      type="search"
-    >
-    <button>
+    <!-- Para pegar o que vai ser digitado no INPUT utilizamos o two-way data binding 
+         através da Diretiva [(ngModel)] -->
+    <input type="search" [(ngModel)]="campoBusca">
+
+    <!-- Aplicado um event binding (click) no botão da lupa para chamar o método definido -->
+    <button (click)="buscarLivros()">
       <img src="assets/imagens/icone-busca.png" alt="Lupa de cor roxa">
     </button>
   </div>
   <p>Busque por assunto, autoria, nome...</p>
-<div class="container-card" *ngIf="listaLivros?.length > 0, else telaInicial">
-  <div *ngFor="let livro of listaLivros">
-    <app-livro [livro]="livro"></app-livro>
+  <div class="container-card" *ngIf="listaLivros?.length > 0, else telaInicial">
+    <div *ngFor="let livro of listaLivros">
+      <app-livro [livro]="livro"></app-livro>
+    </div>
   </div>
-</div>
-<ng-template #telaInicial>
-  <div class="imagens">
-    <h1 class="titulo">Busque o livro <br> que quiser na <br> nossa estante!</h1>
-    <img
-      class="ilustracao"
-      src="../../assets/imagens/ilustracao-estante.png"
-      alt="Ilustração de uma pessoa em pé ao lado de uma estante com livros e plantas">
-  </div>
-</ng-template>
+  <ng-template #telaInicial>
+    <div class="imagens">
+      <h1 class="titulo">Busque o livro <br> que quiser na <br> nossa estante!</h1>
+      <img class="ilustracao" src="../../assets/imagens/ilustracao-estante.png"
+        alt="Ilustração de uma pessoa em pé ao lado de uma estante com livros e plantas">
+    </div>
+  </ng-template>
