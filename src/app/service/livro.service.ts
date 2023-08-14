@@ -26,9 +26,9 @@ export class LivroService {
     // O map sim, manipula o dado e traz o array de items definido na interface
     return this.http.get<LivrosResultado>(this.API, { 
       params }).pipe(
-        tap(retornoDadosAPI => console.log('Fluxo do tap: ', retornoDadosAPI)),
+        //tap(retornoDadosAPI => console.log('Fluxo do tap: ', retornoDadosAPI)),
         map(resultado => resultado.items),
-        tap(resultado => console.log('Fluxo após o map: ', resultado))
+        //tap(resultado => console.log('Fluxo após o map: ', resultado))
       )
   }
 }
