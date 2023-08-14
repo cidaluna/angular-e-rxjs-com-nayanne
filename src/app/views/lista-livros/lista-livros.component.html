@@ -10,7 +10,8 @@
     </button>
   </div>
   <p>Busque por assunto, autoria, nome...</p>
-  <div class="container-card" *ngIf="livrosEncontrados$ | async, else telaInicial"> <!-- trouxe o Observable no ngIf -->
+  <div class="container-card" *ngIf="livrosEncontrados$ | async as listaLivros, else telaInicial">
+    <!-- trouxe o Observable no ngIf -->
     <div *ngFor="let livro of listaLivros">
       <app-livro [livro]="livro"></app-livro>
     </div>
