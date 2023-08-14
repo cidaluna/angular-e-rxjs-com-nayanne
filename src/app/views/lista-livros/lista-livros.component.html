@@ -3,10 +3,9 @@
   <div class="busca">
     <!-- Para pegar o que vai ser digitado no INPUT utilizamos o two-way data binding 
          através da Diretiva [(ngModel)] -->
-    <input type="search" [(ngModel)]="campoBusca">
+    <input type="search" [(ngModel)]="campoBusca" (keyup)="buscarLivros()">
 
-    <!-- Aplicado um event binding (click) no botão da lupa para chamar o método definido -->
-    <button (click)="buscarLivros()">
+    <button>
       <img src="assets/imagens/icone-busca.png" alt="Lupa de cor roxa">
     </button>
   </div>

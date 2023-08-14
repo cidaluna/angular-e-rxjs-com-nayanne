@@ -2,7 +2,7 @@
 
 Project "Search for Books" using RxJS resources in Angular 14 and using Google Books API. This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.3.
 
-![Página Web com um campo de input para pesquisa de livros na API Google Books - Curso da Alura](https://github.com/cidaluna/angular-e-rxjs-com-nayanne/blob/lunabranch/src/assets/imagens/Projeto-Busca-Por-Livros-RxJS-e-Angular-Cida-Luna-2023-Alura-API-Google-Books.PNG)
+![Página Web com um campo de input para pesquisa de livros na API Google Books - Curso da Alura](https://github.com/cidaluna/angular-e-rxjs-com-nayanne/blob/lunabranch/src/assets/imagens/Projeto-Busca-Por-Livros-RxJS-e-Angular-Cida-Luna-2023-Alura-API-Google-Books.png)
 
 ## Development server
 
