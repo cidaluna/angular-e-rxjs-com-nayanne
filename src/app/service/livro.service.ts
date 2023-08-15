@@ -10,13 +10,13 @@ export class LivroService {
 
   // Conectando com a API Google Books solicitação GET
   // Na UL temos após volumes o parâmetro ?q=search+terms
-  private readonly API = 'https://www.googleapis.com/books/v1/volum';
+  private readonly API = 'https://www.googleapis.com/books/v1/volumes';
   
   // Importar os métodos Http do Angular Get, Post, Put...
   constructor(private http: HttpClient) { }
 
   
-  buscar(valorDigitado: string): Observable<Item[]>{
+  buscar(valorDigitado: string): Observable<LivrosResultado>{
     // Quando o usuário digitar uma informação e clicar na lupa, o valor digitado será o parâmetro
     const params = new HttpParams().append('q', valorDigitado);
     // Chamando a API e passando o parâmetro
@@ -25,10 +25,11 @@ export class LivroService {
     // O tap não modifca os dados, serve apenas para visualizá-los
     // O map sim, manipula o dado e traz o array de items definido na interface
     return this.http.get<LivrosResultado>(this.API, { 
-      params }).pipe(
+      params })
+      //.pipe(
         //tap(retornoDadosAPI => console.log('Fluxo do tap: ', retornoDadosAPI)),
-        map(resultado => resultado.items),
+        //map(resultado => resultado.items ?? []),  // array vazio se nao houver items a serem retornados, inserido no componente
         //tap(resultado => console.log('Fluxo após o map: ', resultado))
-      )
+      //)
   }
 }

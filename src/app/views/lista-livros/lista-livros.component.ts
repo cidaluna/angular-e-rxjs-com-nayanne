@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { EMPTY, catchError, debounceTime, filter, map, switchMap, tap, throwError } from 'rxjs';
-import { Item } from 'src/app/models/interfaces';
+import { EMPTY, catchError, debounceTime, filter, map, of, switchMap, tap, throwError } from 'rxjs';
+import { Item, LivrosResultado } from 'src/app/models/interfaces';
 import { LivroVolumeInfo } from 'src/app/models/livroVolumeInfo';
 import { LivroService } from 'src/app/service/livro.service';
 
@@ -15,11 +15,12 @@ export class ListaLivrosComponent{
 
   campoBusca = new FormControl();
   mensagemErro: string = '';
+  livrosResultado: LivrosResultado;
 
   // Injetando o service para possibilitar o uso dos recursos e métodos da API 
   constructor(private service: LivroService) { }
-
-  livrosEncontrados$ = this.campoBusca.valueChanges   // retorna um Observable
+/*
+  totalDeLivros$ = this.campoBusca.valueChanges   // retorna um Observable
   .pipe(
     debounceTime(PAUSA),
     filter((valorDigitado) => valorDigitado.length >= 3),
@@ -27,16 +28,31 @@ export class ListaLivrosComponent{
     switchMap((valorDigitado) => 
       this.service.buscar(valorDigitado)
     ),
-    tap(() => console.log("Requisição ao servidor")),
-    map((items) => this.livrosResultadoParaLivros(items)),
-    catchError(() => {
-      // outra forma de utilizar qdo nao deseja realizar algo com o erro
-      this.mensagemErro = "Ops, ocorreu um erro. Recarregue a aplicação!"
-      return EMPTY
-      //console.log(erro)
-      //return throwError(() => new Error(this.mensagemErro = "Ops, ocorreu um erro. Recarregue a aplicação!"))
+    map((resultado) => this.livrosResultado = resultado),
+    catchError((erro) => {
+      console.log(erro)
+      return of()
     })
-  ) 
+  )
+*/
+
+livrosEncontrados$ = this.campoBusca.valueChanges
+.pipe(
+  debounceTime(PAUSA),
+  filter((valorDigitado) => valorDigitado.length >= 3),
+  tap(() => console.log('Fluxo inicial')),
+  switchMap((valorDigitado) => this.service.buscar(valorDigitado)),
+  map(resultado => this.livrosResultado = resultado),
+  tap((retornoAPI) => console.log(retornoAPI)),
+  map(resultado => resultado.items ?? []),
+  map((items) => this.livrosResultadoParaLivros(items)),
+  catchError((erro) => {
+    // this.mensagemErro ='Ops, ocorreu um erro. Recarregue a aplicação!'
+    // return EMPTY
+    console.log(erro)
+    return throwError(() => new Error(this.mensagemErro ='Ops, ocorreu um erro. Recarregue a aplicação!'))
+  })
+)
 
   // https://angular.io/guide/http-request-data-from-server#requesting-a-typed-response
   // Converter o objeto json para o tipo de dado necessário, podendo acessar as propriedades definidas na interface

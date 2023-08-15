@@ -1,18 +1,19 @@
 <section class="container">
   <header>Que livro você procura?</header>
   <div class="busca">
-    <!-- Para pegar o que vai ser digitado no INPUT utilizamos o two-way data binding 
-         através da Diretiva [(ngModel)] -->
     <input type="search" [formControl]="campoBusca">
-
     <button>
       <img src="assets/imagens/icone-busca.png" alt="Lupa de cor roxa">
     </button>
   </div>
   <p>Busque por assunto, autoria, nome...</p>
-  <div class="resultados mensagem-erro" *ngIf="mensagemErro"> {{ mensagemErro }}</div>
+  <div class="resultados mensagem-erro" *ngIf="mensagemErro">
+    {{ mensagemErro }}
+  </div>
+  <div class="resultados" *ngIf="livrosEncontrados$ | async ">
+    {{ livrosResultado.totalDeItens }} resultados encontrados
+  </div>
   <div class="container-card" *ngIf="livrosEncontrados$ | async as listaLivros, else telaInicial">
-    <!-- trouxe o Observable no ngIf -->
     <div *ngFor="let livro of listaLivros">
       <app-livro [livro]="livro"></app-livro>
     </div>
