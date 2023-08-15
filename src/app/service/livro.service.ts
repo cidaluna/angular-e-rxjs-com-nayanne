@@ -10,7 +10,7 @@ export class LivroService {
 
   // Conectando com a API Google Books solicitação GET
   // Na UL temos após volumes o parâmetro ?q=search+terms
-  private readonly API = 'https://www.googleapis.com/books/v1/volumes';
+  private readonly API = 'https://www.googleapis.com/books/v1/volum';
   
   // Importar os métodos Http do Angular Get, Post, Put...
   constructor(private http: HttpClient) { }

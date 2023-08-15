@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, filter, map, switchMap, tap } from 'rxjs';
+import { catchError, debounceTime, filter, map, switchMap, tap, throwError } from 'rxjs';
 import { Item } from 'src/app/models/interfaces';
 import { LivroVolumeInfo } from 'src/app/models/livroVolumeInfo';
 import { LivroService } from 'src/app/service/livro.service';
@@ -14,6 +14,7 @@ const PAUSA = 300;
 export class ListaLivrosComponent{
 
   campoBusca = new FormControl();
+  mensagemErro: string = '';
 
   // Injetando o service para possibilitar o uso dos recursos e métodos da API 
   constructor(private service: LivroService) { }
@@ -27,7 +28,11 @@ export class ListaLivrosComponent{
       this.service.buscar(valorDigitado)
     ),
     tap(() => console.log("Requisição ao servidor")),
-    map((items) => this.livrosResultadoParaLivros(items))
+    map((items) => this.livrosResultadoParaLivros(items)),
+    catchError(erro => {
+      console.log(erro)
+      return throwError(() => new Error(this.mensagemErro = "Ops, ocorreu um erro. Recarregue a aplicação!"))
+    })
   ) 
 
   // https://angular.io/guide/http-request-data-from-server#requesting-a-typed-response
